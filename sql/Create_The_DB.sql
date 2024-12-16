@@ -59,6 +59,7 @@ CREATE TABLE reservation_history (
 
 
 CREATE TABLE statistics (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     chef_id INT,
     date DATE NOT NULL,
@@ -68,13 +69,16 @@ CREATE TABLE statistics (
     cancelled_reservations INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (chef_id) REFERENCES users(id) ON DELETE CASCADE
+    
 );
 
 
 CREATE TABLE archived_dishes (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     dish_id INT,
     archived_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE CASCADE
+
 );
 
