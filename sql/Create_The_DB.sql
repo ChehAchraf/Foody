@@ -3,16 +3,19 @@ CREATE DATABASE IF NOT EXISTS foody;
 USE foody;
 
 CREATE TABLE users (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('client', 'chef') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
 );
 
 
 CREATE TABLE menus (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     chef_id INT,
     title VARCHAR(255) NOT NULL,
@@ -20,10 +23,12 @@ CREATE TABLE menus (
     price DECIMAL(10, 2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (chef_id) REFERENCES users(id) ON DELETE CASCADE
+
 );
 
 
 CREATE TABLE dishes (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     menu_id INT,
     name VARCHAR(255) NOT NULL,
@@ -31,10 +36,12 @@ CREATE TABLE dishes (
     price DECIMAL(10, 2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (menu_id) REFERENCES menus(id) ON DELETE CASCADE
+
 );
 
 
 CREATE TABLE reservations (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT,
     chef_id INT,
@@ -47,14 +54,17 @@ CREATE TABLE reservations (
     FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (chef_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (menu_id) REFERENCES menus(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE reservation_history (
+    
     id INT AUTO_INCREMENT PRIMARY KEY,
     reservation_id INT,
     status ENUM('pending', 'confirmed', 'cancelled'),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (reservation_id) REFERENCES reservations(id) ON DELETE CASCADE
+    
 );
 
 
