@@ -32,7 +32,7 @@ CREATE TABLE dishes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     menu_id INT,
     name VARCHAR(255) NOT NULL,
-    description TEXT,
+    ingrediant TEXT,
     price DECIMAL(10, 2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (menu_id) REFERENCES menus(id) ON DELETE CASCADE

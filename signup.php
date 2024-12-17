@@ -35,34 +35,34 @@
     <div class="container signup-container">
         <div class="signup-card">
             <h2 class="text-center mb-4">Create an Account</h2>
-            <form>
+            <form method="POST" action="./inc/add_user.php">
                 <div class="mb-3">
                         <label for="name" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter first name" required>
+                        <input type="text" class="form-control" name="name" placeholder="Enter first name" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                    <input type="email" class="form-control" name="email" placeholder="Enter email" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone Number</label>
-                    <input type="tel" class="form-control" id="phone" placeholder="Enter phone number">
+                    <input type="tel" class="form-control" name="phone" placeholder="Enter phone number">
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Create password" required>
+                    <input type="password" class="form-control" name="password" placeholder="Create password" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" placeholder="Repeat password" required>
+                    <input type="password" class="form-control" name="confirmPassword" placeholder="Repeat password" required>
                 </div>
 
                 <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                    <input type="checkbox" class="form-check-input" name="termsCheck" required>
                     <label class="form-check-label" for="termsCheck">
                         I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
                     </label>

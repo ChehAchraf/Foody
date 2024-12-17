@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,18 +32,26 @@
 <body>
     <div class="container login-container">
         <div class="login-card">
+                <?php if(isset($_SESSION['login_done'])): ?>
+                <div class="alert alert-success" role="alert">
+                    <?php 
+                        echo $_SESSION['login_done']; 
+                        header('Refresh:5,url=./dash/index.php');
+                    ?>
+                </div>
+                <?php endif ?>
             <h2 class="text-center mb-4">Login</h2>
-            <form>
+            <form action="inc/auth.php" method="POST">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                    <input type="email" class="form-control" name="email" placeholder="Enter email">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
                 <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <input type="checkbox" class="form-check-input" name="rememberMe">
                     <label class="form-check-label" for="rememberMe">Remember me</label>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
