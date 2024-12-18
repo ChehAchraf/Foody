@@ -1,8 +1,9 @@
 <?php 
     include('db.php');
     if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
-        if ( isset($_POST['menu_name']) && isset($_POST['menu_description']) ) {
+        if ( isset($_POST['menu_name']) && isset($_POST['menu_description']) && isset($_POST['dish_id']) ) {
             $chef_id = $_POST['chef_id'];
+            $dish_id = $_POST['dish_id'];
             $menuprice = $_POST['menuprice'];
             $menuname = remove_space($_POST['menu_name']);
             $menudesc = remove_space($_POST['menu_description']);

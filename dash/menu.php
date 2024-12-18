@@ -101,7 +101,6 @@
                                     <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
                                     <?php endwhile ?>
                                 </select>
-
                             </div>
                             <button type="submit" class="btn btn-primary">Insert Dish</button>
                         </form>
