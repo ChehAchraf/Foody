@@ -1,4 +1,5 @@
 <?php
+    include('../inc/db.php');
     session_start();
     if (isset($_SESSION['id']) && $_SESSION['id'] == 1){
 ?>
@@ -73,33 +74,35 @@
             <div class="mt-5 container">
                 <div class="row">
                     <div class="col-6">
-                        <h2>Insert New Dish</h2>
-                        <form action="../inc/add_dishes.php" method="POST" enctype="multipart/form-data">
-                            <!-- Menu ID -->
-                            
-                            <!-- Dish Name -->
+                        <?php 
+                            $get_chef = "SELECT `id`,`name` FROM `users` WHERE id = 1";
+                            $do = $conn->query($get_chef);
+                            if($do->num_rows < 1){
+                                echo "There must be an error showing chef";
+                            }
+                        ?>
+                        <h2>Insert New Menu</h2>
+                        <form action="../inc/add_menus.php" method="POST">
                             <div class="mb-3">
-                                <label for="dish_name" class="form-label">Dish Name</label>
-                                <input type="text" class="form-control" id="dish_name" name="dish_name" required>
+                                <label for="menu_title" class="form-label">Menu Name</label>
+                                <input type="text" class="form-control" id="menu_title" name="menu_name" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="menu_description" class="form-label">menu description</label>
+                                <textarea class="form-control" id="menu_description" name="menu_description" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="menuprice" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="menuprice" name="menuprice" placeholder="Enter a number" required>
+                            </div>
+                            <div class="mb-3">
+                                <select name="chef_id" class="form-select" for="chef" class="form-label">
+                                    <?php while($row = $do->fetch_assoc()): ?>
+                                    <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                                    <?php endwhile ?>
+                                </select>
 
-                            <!-- Ingredients -->
-                            <div class="mb-3">
-                                <label for="dish_ingredient" class="form-label">Dish Ingredients</label>
-                                <textarea class="form-control" id="dish_ingredient" name="dish_ingredient" rows="3" required></textarea>
                             </div>
-
-                            <!-- Price -->
-                            <div class="mb-3">
-                                <label for="dish_price" class="form-label">Price</label>
-                                <input type="number" step="0.01" class="form-control" id="dish_price" name="dish_price" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="dish_img" class="form-label">Dish Image</label>
-                                <input type="file" step="0.01" class="form-control" id="dish_img" name="dish_img" required>
-                            </div>
-
-                            <!-- Submit Button -->
                             <button type="submit" class="btn btn-primary">Insert Dish</button>
                         </form>
                     </div>
