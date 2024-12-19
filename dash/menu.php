@@ -96,11 +96,13 @@
                                 <input type="number" class="form-control" id="menuprice" name="menuprice" placeholder="Enter a number" required>
                             </div>
                             <div class="mb-3">
-                                <select name="chef_id" class="form-select" for="chef" class="form-label">
-                                    <?php while($row = $do->fetch_assoc()): ?>
-                                    <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
-                                    <?php endwhile ?>
-                                </select>
+                            <label for="chef_id">Choose who created this menu</label>
+                            <select name="chef_id" id="chef_ic" class="form-select">
+                                <?php while ($row = $do->fetch_assoc()): ?>
+                                    <option disabled selected="true">Select menu</option>
+                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                                <?php endwhile; ?>
+                            </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Insert Dish</button>
                         </form>

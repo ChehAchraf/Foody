@@ -1,4 +1,5 @@
 <?php
+    include('../inc/db.php');
     session_start();
     if (isset($_SESSION['id']) && $_SESSION['id'] == 1){
 ?>
@@ -98,7 +99,21 @@
                                 <label for="dish_img" class="form-label">Dish Image</label>
                                 <input type="file" step="0.01" class="form-control" id="dish_img" name="dish_img" required>
                             </div>
-
+                            <?php 
+                                $get_chef = "SELECT `id`,`title` FROM `menus`";
+                                $do = $conn->query($get_chef);
+                                if($do->num_rows < 1){
+                                    echo "There must be an error showing chef";
+                                }
+                            ?>
+                            <div class="mb-3">
+                                <label for="menu_id">Choose the menu</label>
+                                <select name="menu_id" id="menu_id" class="form-select"  class="form-label">
+                                    <?php while($row = $do->fetch_assoc()): ?>
+                                    <option value="<?php echo $row['id'] ?>"><?php echo $row['title'] ?></option>
+                                    <?php endwhile ?>
+                                </select>
+                            </div>
                             <!-- Submit Button -->
                             <button type="submit" class="btn btn-primary">Insert Dish</button>
                         </form>
@@ -117,6 +132,10 @@
 </html>
 <?php
     }else{
+        lmima();
+    }
+
+    function lmima(){
         header('Location: ../login.php');
     }
  ?>

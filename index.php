@@ -304,22 +304,31 @@
         </div>
         <!-- Feature End -->
         
-        
+        <?php 
+            include_once('inc/db.php');
+            $get_menus = "SELECT * FROM `menus`";
+            $execute = $conn->query($get_menus);
+            if($execute->num_rows < 1 ){
+                echo "There must be an error fetching the data from menus table";
+            }
+        ?>
         <!-- Food Start -->
         <div class="food">
             <div class="container">
                 <div class="row align-items-center">
+                    <?php while($row = $execute->fetch_assoc()): ?>
                     <div class="col-md-4">
                         <div class="food-item">
                             <i class="flaticon-burger"></i>
-                            <h2>Burgers</h2>
+                            <h2><?php echo $row['title'] ?></h2>
                             <p>
-                                Lorem ipsum dolor sit amet elit. Phasel nec pretium mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor auctor quis sem. 
+                                <?php echo $row['description'] ?>
                             </p>
-                            <a href="">View Menu</a>
+                            <a href="menu.html">View Menu</a>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <?php endwhile ?>
+                    <!-- <div class="col-md-4">
                         <div class="food-item">
                             <i class="flaticon-snack"></i>
                             <h2>Snacks</h2>
@@ -338,7 +347,7 @@
                             </p>
                             <a href="">View Menu</a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

@@ -36,7 +36,7 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav ml-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="index.php" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="feature.html" class="nav-item nav-link">Feature</a>
                         <a href="team.html" class="nav-item nav-link">Chef</a>
@@ -50,6 +50,13 @@
                             </div>
                         </div>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Connexion</a>
+                            <div class="dropdown-menu">
+                                <a href="blog.html" class="dropdown-item">Login</a>
+                                <a href="single.html" class="dropdown-item">Sign up</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
