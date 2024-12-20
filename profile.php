@@ -62,7 +62,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <aside class="col-md-3 sidebar p-3">
+            <aside class="col-md-3 sidebar p-3 ">
                 <h4>User Dashboard</h4>
                 <a href="#">Profile</a>
                 <a href="#">Reservations</a>

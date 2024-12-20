@@ -6,7 +6,6 @@
         if (isset($_SESSION['id']) && isset($_POST['send'])) {
             $id = $_SESSION['id'];
             $user_name = sanitize($_POST['name']);
-            $user_mail = sanitize($_POST['email']);
             $time = sanitize($_POST['time']);
             $date = sanitize($_POST['date']);
             $places = sanitize($_POST['places']);
