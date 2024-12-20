@@ -140,8 +140,24 @@
             </div>
         </div>
         <!-- Carousel End -->
-        
-        
+        <?php 
+            if( isset($_SESSION['res_done']) ){
+                ?>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Your reservation has been completed.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+              </script>
+                <?php
+                unset($_SESSION['res_done']);
+            }
+        ?>
+
+        <?php if(isset($_SESSION['id'])): ?>
         <!-- Booking Start -->
         <div class="booking">
             <div class="container">
@@ -164,10 +180,22 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="booking-form">
-                            <form>
+                            <?php
+                                include('./inc/db.php');
+                                $id = $_SESSION['id'];
+                                $get_menu_to_book = "SELECT `id`,`title` FROM `menus`";
+                                $Push = $conn->query($get_menu_to_book);
+                                if($Push->num_rows <1){
+                                    echo "mkyn walo";
+                                }
+                                $get_users_data = "SELECT * FROM `users` WHERE id = '$id'";
+                                $exec = $conn->query($get_users_data);
+                                $row = $exec->fetch_assoc();
+                            ?>
+                            <form method="POST" action="./inc/reserv_handling.php">
                                 <div class="control-group">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Name" required="required" />
+                                        <input name="name" type="text" value="<?php echo $row['name'] ?>" class="form-control" placeholder="Name" required="required" />
                                         <div class="input-group-append">
                                             <div class="input-group-text"><i class="far fa-user"></i></div>
                                         </div>
@@ -175,23 +203,15 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="input-group">
-                                        <input type="email" class="form-control" placeholder="Email" required="required" />
+                                        <input name="email" type="email" value="<?php echo $row['email'] ?>" class="form-control" placeholder="Email" required="required" />
                                         <div class="input-group-append">
                                             <div class="input-group-text"><i class="far fa-envelope"></i></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Mobile" required="required" />
-                                        <div class="input-group-append">
-                                            <div class="input-group-text"><i class="fa fa-mobile-alt"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="control-group">
                                     <div class="input-group date" id="date" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" placeholder="Date" data-target="#date" data-toggle="datetimepicker"/>
+                                        <input name="date" type="text" class="form-control datetimepicker-input" placeholder="Date" data-target="#date" data-toggle="datetimepicker"/>
                                         <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                                         </div>
@@ -199,7 +219,7 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="input-group time" id="time" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" placeholder="Time" data-target="#time" data-toggle="datetimepicker"/>
+                                        <input name="time" type="text" class="form-control datetimepicker-input" placeholder="Time" data-target="#time" data-toggle="datetimepicker"/>
                                         <div class="input-group-append" data-target="#time" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="far fa-clock"></i></div>
                                         </div>
@@ -207,7 +227,7 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="input-group">
-                                        <select class="custom-select form-control">
+                                        <select name="places" class="custom-select form-control">
                                             <option selected>Guest</option>
                                             <option value="1">1 Guest</option>
                                             <option value="2">2 Guest</option>
@@ -225,8 +245,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="control-group">
+                                    <div class="input-group">
+                                        <select name="menu" class="custom-select form-control">
+                                            <option selected>Menu</option>
+                                            <?php while($row = $Push->fetch_assoc() ): ?>
+                                            <option value="<?php echo $row['id'] ?>"><?php echo $row['title'] ?></option>
+                                            <?php endwhile ?>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div>
-                                    <button class="btn custom-btn" type="submit">Book Now</button>
+                                    <button name="send" class="btn custom-btn" type="submit">Book Now</button>
                                 </div>
                             </form>
                         </div>
@@ -235,7 +268,7 @@
             </div>
         </div>
         <!-- Booking End -->
-        
+        <?php endif ?>
 
         <!-- About Start -->
         <div class="about">

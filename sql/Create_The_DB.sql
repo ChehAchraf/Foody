@@ -52,7 +52,6 @@ CREATE TABLE reservations (
     status ENUM('pending', 'confirmed', 'cancelled') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (chef_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (menu_id) REFERENCES menus(id) ON DELETE CASCADE
 
 );

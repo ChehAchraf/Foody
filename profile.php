@@ -1,6 +1,7 @@
 <?php 
     session_start();
     if( isset($_SESSION['id']) ){
+        include('inc/db.php');
         if(isset($_POST['logout'])){
             unset($_SESSION['id']);
             header('Location: index.php');
@@ -70,58 +71,70 @@
                     <a><button name="logout" class="btn-reset">Logout</button></a>
                 </form>
             </aside>
-
             <main class="col-md-9 main-content">
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">User Information</div>
                     <div class="card-body">
+                    <?php 
+                        $id = $_SESSION['id'];
+                        $get_user_data = "SELECT * FROM `users` WHERE `id` = '$id'";
+                        $get_the_result = $conn->query($get_user_data);
+                        if($get_the_result->num_rows > 0){
+                            $row = $get_the_result->fetch_assoc();
+                    ?>
                         <form>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" id="name" class="form-control" value="John Doe">
+                                <input type="text" id="name" class="form-control" value="<?php echo $row['name'] ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" id="email" class="form-control" value="johndoe@example.com">
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" id="phone" class="form-control" value="+123456789">
+                                <input type="email" id="email" class="form-control" value="<?php echo $row['email'] ?>">
                             </div>
                             <button type="submit" class="btn btn-primary">Update Information</button>
                         </form>
+                    <?php }else{
+                        echo "there must be an error";
+                    } ?>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header bg-primary text-white">Booking History</div>
                     <div class="card-body">
+                        <?php 
+                            $get_reservations = "SELECT reservations.id AS reservation_id, menus.title AS menu_title, reservations.reservation_date, reservations.reservation_time, reservations.num_people, reservations.status FROM reservations JOIN menus ON reservations.menu_id = menus.id;";
+                            $fetch = $conn->query($get_reservations);
+                            if($fetch->num_rows > 0){
+                        ?>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Menu name</th>
                                     <th>Booking Date</th>
                                     <th>Time</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php while($row = $fetch->fetch_assoc()): ?>
                                 <tr>
-                                    <td>2024-12-01</td>
-                                    <td>18:30</td>
-                                    <td><span class="badge bg-success">Approved</span></td>
+                                    <td><?php echo $row['menu_title'] ?></td>
+                                    <td><?php echo $row['reservation_date'] ?></td>
+                                    <td><?php echo $row['reservation_time'] ?></td>
+                                    <td><span class="badge bg-<?php echo ($row['status'] == "pending") ? "warning" : (($row['status'] == "confirmed") ? "success" : "danger"); ?>"><?php echo $row['status'] ?></span></td>
                                 </tr>
-                                <tr>
-                                    <td>2024-11-15</td>
-                                    <td>20:00</td>
-                                    <td><span class="badge bg-danger">Cancelled</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2024-11-05</td>
-                                    <td>19:00</td>
-                                    <td><span class="badge bg-success">Approved</span></td>
-                                </tr>
+                                <?php endwhile ?>
                             </tbody>
                         </table>
+                        <?php }else{
+                            echo '  <div class="container">
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>Attention!</strong> Please make a reservation first.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    </div>';           
+                        }?>
                     </div>
                 </div>
             </main>
