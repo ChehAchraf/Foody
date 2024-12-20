@@ -2,8 +2,6 @@
 include('./template/header.php')
 ?>
 
-
-
 <!-- Page Header Start -->
 <div class="page-header mb-0">
     <div class="container">
@@ -76,20 +74,20 @@ include('./inc/db.php');
                 <?php
                 $menus_query = "SELECT * FROM menus";
                 $menus_result = $conn->query($menus_query);
-                $is_first_tab = true;
+                $is_first_tab = true; 
                 while ($menu = $menus_result->fetch_assoc()) { ?>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo $is_first_tab ? 'active' : ''; ?>"
-                            data-toggle="pill"
-                            href="#menu-<?php echo $menu['id']; ?>">
+                        <a class="nav-link <?php echo $is_first_tab ? 'active' : ''; ?>" 
+                        data-toggle="pill" 
+                        href="#menu-<?php echo $menu['id']; ?>">
                             <?php echo htmlspecialchars($menu['title']); ?>
                         </a>
                     </li>
                 <?php
-                    $is_first_tab = false;
+                    $is_first_tab = false; 
                 } ?>
             </ul>
-
+            
             <div class="tab-content">
                 <?php
                 $menus_result->data_seek(0);
@@ -99,11 +97,15 @@ include('./inc/db.php');
                     $dishes_query = "SELECT * FROM dishes WHERE menu_id = $menu_id";
                     $dishes_result = $conn->query($dishes_query);
                 ?>
-                    <div id="menu-<?php echo $menu['id']; ?>"
+                    <div id="menu-<?php echo $menu['id']; ?>" 
                         class="container tab-pane <?php echo $is_first_content ? 'active' : 'fade'; ?>">
                         <div class="row">
                             <div class="col-lg-7 col-md-12">
-                                <?php while ($dish = $dishes_result->fetch_assoc()) { ?>
+                                <?php 
+                                $has_dishes = false; 
+                                while ($dish = $dishes_result->fetch_assoc()) { 
+                                    $has_dishes = true; 
+                                ?>
                                     <div class="menu-item">
                                         <div class="menu-img">
                                             <img src="<?php echo !empty($dish['image_path']) ? str_replace('../', '', $dish['image_path']) : 'img/default-placeholder.jpg'; ?>" alt="Dish Image">
@@ -118,10 +120,12 @@ include('./inc/db.php');
                                     </div>
                                 <?php } ?>
 
-                                <!-- Button to trigger the modal -->
-                                <button type="button" class="btn btn-primary btn-block mt-4" data-toggle="modal" data-target="#reservationModal-<?php echo $menu['id']; ?>">
-                                    Reserve This Menu
-                                </button>
+                                <?php if ($has_dishes) { ?>
+                                    <!-- Button to trigger the modal -->
+                                    <button type="button" class="btn btn-primary btn-block mt-4" data-toggle="modal" data-target="#reservationModal-<?php echo $menu['id']; ?>">
+                                        Reserve This Menu
+                                    </button>
+                                <?php } ?>
                             </div>
                             <div class="col-lg-5 d-none d-lg-block">
                                 <img src="img/menu-burger-img.jpg" alt="Menu Section Image">
@@ -139,7 +143,7 @@ include('./inc/db.php');
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="./inc/reserv_handling.php" method="POST">
+                                <form action="reserve.php" method="POST">
                                     <div class="modal-body">
                                         <input type="hidden" name="menu" value="<?php echo $menu['id']; ?>">
                                         <div class="form-group">
@@ -164,12 +168,13 @@ include('./inc/db.php');
                         </div>
                     </div>
                 <?php
-                    $is_first_content = false;
+                    $is_first_content = false; 
                 } ?>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Menu End -->
 <!-- Footer Start -->

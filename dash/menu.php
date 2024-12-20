@@ -142,35 +142,98 @@
                         <?php 
                             $get_chef = "SELECT `id`,`name` FROM `users` WHERE id = 1";
                             $do = $conn->query($get_chef);
+                            $get_dish = "SELECT `id`,`name` FROM `dishes`";
+                            $go = $conn->query($get_dish);
                             if($do->num_rows < 1){
                                 echo "There must be an error showing chef";
                             }
                         ?>
                         <h2>Insert New Menu</h2>
                         <form action="../inc/add_menus.php" method="POST">
-                            <div class="mb-3">
-                                <label for="menu_title" class="form-label">Menu Name</label>
-                                <input type="text" class="form-control" id="menu_title" name="menu_name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="menu_description" class="form-label">menu description</label>
-                                <textarea class="form-control" id="menu_description" name="menu_description" rows="3" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="menuprice" class="form-label">Price</label>
-                                <input type="number" class="form-control" id="menuprice" name="menuprice" placeholder="Enter a number" required>
-                            </div>
-                            <div class="mb-3">
-                            <label for="chef_id">Choose who created this menu</label>
-                            <select name="chef_id" id="chef_ic" class="form-select">
-                                <?php while ($row = $do->fetch_assoc()): ?>
-                                    <option disabled selected="true">Select menu</option>
-                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
-                                <?php endwhile; ?>
-                            </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Insert Dish</button>
-                        </form>
+    <!-- Existing menu fields -->
+    <div class="mb-3">
+        <label for="menu_title" class="form-label">Menu Name</label>
+        <input type="text" class="form-control" id="menu_title" name="menu_name" required>
+    </div>
+    <div class="mb-3">
+        <label for="menu_description" class="form-label">Menu Description</label>
+        <textarea class="form-control" id="menu_description" name="menu_description" rows="3" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="menuprice" class="form-label">Price</label>
+        <input type="number" class="form-control" id="menuprice" name="menuprice" required>
+    </div>
+    <div class="mb-3">
+        <label for="chef_id">Chef</label>
+        <select name="chef_id" id="chef_id" class="form-select">
+            <?php 
+            $chef_query = "SELECT id, name FROM users WHERE role = 'chef'";
+            $chef_result = $conn->query($chef_query);
+            while ($row = $chef_result->fetch_assoc()): 
+            ?>
+                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+            <?php endwhile; ?>
+        </select>
+    </div>
+
+    <!-- Dish Selection Container -->
+    <div id="dishes_container">
+        <div class="mb-3">
+            <label>Select Dish</label>
+            <select name="dish_ids[]" class="form-select">
+                <option value="">Choose a dish</option>
+                <?php 
+                $dish_query = "SELECT id, name FROM dishes";
+                $dish_result = $conn->query($dish_query);
+                while ($row = $dish_result->fetch_assoc()): 
+                ?>
+                    <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                <?php endwhile; ?>
+            </select>
+        </div>
+    </div>
+    
+    <button type="button" class="btn btn-secondary mb-3" id="addDishBtn">Add Another Dish</button>
+    <button type="submit" class="btn btn-primary">Create Menu</button>
+</form>
+
+<script>
+document.getElementById('addDishBtn').addEventListener('click', function() {
+    const container = document.getElementById('dishes_container');
+    
+    // Clone the dish select options
+    const dishSelect = container.querySelector('select').cloneNode(true);
+    dishSelect.value = ''; // Reset selection
+    
+    // Create new container
+    const newDishDiv = document.createElement('div');
+    newDishDiv.className = 'mb-3';
+    
+    // Create wrapper for select and remove button
+    const wrapper = document.createElement('div');
+    wrapper.className = 'd-flex gap-2';
+    
+    // Add remove button
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'btn btn-danger';
+    removeBtn.textContent = 'Remove';
+    removeBtn.onclick = function() {
+        newDishDiv.remove();
+    };
+    
+    // Add select to wrapper
+    dishSelect.className = 'form-select flex-grow-1';
+    wrapper.appendChild(dishSelect);
+    wrapper.appendChild(removeBtn);
+    
+    // Add wrapper to container
+    newDishDiv.appendChild(wrapper);
+    container.appendChild(newDishDiv);
+});
+</script>
+
+
                     </div>
                     <div class="col-6">
                         <div class="">
