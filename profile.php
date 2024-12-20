@@ -1,3 +1,12 @@
+<?php 
+    session_start();
+    if( isset($_SESSION['id']) ){
+        if(isset($_POST['logout'])){
+            unset($_SESSION['id']);
+            header('Location: index.php');
+        }
+  
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +45,11 @@
         .table td, .table th {
             vertical-align: middle;
         }
+        .btn-reset {
+            all: unset; 
+            display: inline-block; 
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -52,7 +66,9 @@
                 <a href="#">Profile</a>
                 <a href="#">Reservations</a>
                 <a href="#">Settings</a>
-                <a href="#">Logout</a>
+                <form action="" method="POST">
+                    <a><button name="logout" class="btn-reset">Logout</button></a>
+                </form>
             </aside>
 
             <main class="col-md-9 main-content">
@@ -115,3 +131,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php
+  }else{
+    header('Location: index.php');
+  }
+?>
