@@ -1,5 +1,92 @@
-<?php include('template/header.php') ?>
+<?php 
+    include('template/header.php');
+    
+?>
 
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="./inc/auth.php">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit-login" class="btn btn-primary">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <p class="text-center w-100">Don't have an account? <a href="signup.php">Sign up</a></p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- end login modal -->
+
+        <!-- Sign-Up Modal -->
+        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="./inc/add_user.php">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" name="name" placeholder="Enter first name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" name="phone" placeholder="Enter phone number">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Create password" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" name="confirmPassword" placeholder="Repeat password" required>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" name="termsCheck" required>
+                                <label class="form-check-label" for="termsCheck">
+                                    I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mb-3">Sign Up</button>
+
+                            <div class="text-center">
+                                <p>Already have an account? <a href="login.php" class="text-decoration-none">Log In</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End sign up modal -->
 
         <!-- Carousel Start -->
         <div class="carousel">

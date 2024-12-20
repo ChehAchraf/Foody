@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,13 +52,19 @@
                             </div>
                         </div>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <!-- for login -->
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Connexion</a>
                             <div class="dropdown-menu">
-                                <a href="blog.html" class="dropdown-item">Login</a>
-                                <a href="single.html" class="dropdown-item">Sign up</a>
+                                <button type="button" class="btn btn-primary dropdown-item" data-toggle="modal" data-target="#loginModal">
+                                    Login
+                                </button>
+                                <button type="button" class="btn btn-primary dropdown-item" data-toggle="modal" data-target="#signupModal">
+                                        Sign Up
+                                </button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

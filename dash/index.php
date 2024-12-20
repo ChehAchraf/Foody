@@ -3,75 +3,140 @@
     session_start();
     if (isset($_SESSION['id']) && $_SESSION['id'] == 1){
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bootstrap Admin Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  body {
+    font-family: "Raleway", sans-serif;
+  }
+  .sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+    z-index: 1000;
+    border-right: 1px solid #dee2e6;
+  }
+  .content {
+    margin-left: 250px;
+    padding: 20px;
+  }
+</style>
 </head>
-  <body>
-    <header class="py-4 px-5 bg-dark text-white">
-        <div class="d-flex justify-content-between align-items-center">
-            <h5>Foody | Dashboard</h5>
-            <img  src="https://i.pravatar.cc/50" alt="" style="border-radius: 100%;">
-        </div>
-    </header>
-    <section class="d-flex">
-        <div class="bg-dark h-full text-white p-2 col-2 d-flex flex-column align-items-center ">
-            <a href="index.php" class="text-white text-decoration-none fs-6"> 
-                <i class="fa-solid fa-plate-wheat"></i> Dishes
-            </a>
-            <hr style="width: 80%;color: white;">
-            <a href="menu.php" class="text-white text-decoration-none fs-6"> 
-                <i class="fa-solid fa-plate-wheat"></i> Menus
-            </a>
-            <hr style="width: 80%;color: white;">
-            <a href="#" class="text-white text-decoration-none fs-6"> 
-                <i class="fa-solid fa-plate-wheat"></i> Client
-            </a>
-            <hr style="width: 80%;color: white;">
-            <a href="#" class="text-white text-decoration-none fs-6"> 
-                <i class="fa-solid fa-plate-wheat"></i> Reservations
-            </a>
-        </div>
-        <div class="p-5 container">
-            <div class="row gap-2">
-                <!-- Plate 1 - Type A -->
-                <div class="d-flex flex-column align-items-center justify-content-center bg-danger text-white p-2 col rounded" >
-                    <i class="fas fa-utensils fa-3x mb-3"></i> <!-- Icon for plates -->
-                    <h4>Type A Plates</h4>
-                    <p class="h2">250</p>
-                    <small>Total Available</small>
-                </div>
-        
-                <!-- Plate 2 - Type B -->
-                <div class="d-flex flex-column align-items-center justify-content-center bg-danger text-white p-2 col rounded" >
-                    <i class="fas fa-cogs fa-3x mb-3"></i> <!-- Icon for machinery or types -->
-                    <h4>Type B Plates</h4>
-                    <p class="h2">180</p>
-                    <small>Total Available</small>
-                </div>
-        
-                <!-- Plate 3 - Type C -->
-                <div class="d-flex flex-column align-items-center justify-content-center bg-danger text-white p-2 col rounded" >
-                    <i class="fas fa-plate fa-3x mb-3"></i> <!-- Icon for plates -->
-                    <h4>Type C Plates</h4>
-                    <p class="h2">150</p>
-                    <small>Total Available</small>
-                </div>
-        
-                <!-- Plate 4 - Damaged Plates -->
-                <div class="d-flex flex-column align-items-center justify-content-center bg-danger text-white p-2 col rounded" >
-                    <i class="fas fa-ban fa-3x mb-3"></i> <!-- Icon for damaged or prohibited -->
-                    <h4>Damaged Plates</h4>
-                    <p class="h2">30</p>
-                    <small>Total Damaged</small>
-                </div>
+<body>
+
+<!-- Top Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <button class="btn btn-dark me-2" id="sidebarToggle">
+      <i class="fa fa-bars"></i>
+    </button>
+    <a class="navbar-brand" href="#">Logo</a>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar bg-light">
+  <div class="text-center mt-5">
+    <img src="/w3images/avatar2.png" class="rounded-circle mb-2" style="width: 60px;">
+    <p>Welcome, <strong>Mike</strong></p>
+    <div>
+      <a href="#" class="btn btn-light btn-sm"><i class="fa fa-envelope"></i></a>
+      <a href="#" class="btn btn-light btn-sm"><i class="fa fa-user"></i></a>
+      <a href="#" class="btn btn-light btn-sm"><i class="fa fa-cog"></i></a>
+    </div>
+  </div>
+  <hr>
+  <h5 class="text-center">Dashboard</h5>
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link active" href="index.php"><i class="fa fa-users"></i> Dishes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-eye"></i> Menus</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-users"></i> Traffic</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-bullseye"></i> Geo</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-diamond"></i> Orders</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-bell"></i> News</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-bank"></i> General</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-history"></i> History</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
+    </li>
+  </ul>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+  <div class="container-fluid pt-5">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card text-white bg-danger mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <i class="fa fa-comment fa-2x"></i>
+              <h3>52</h3>
             </div>
-            <div class="mt-5 container">
+            <p>Messages</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <i class="fa fa-eye fa-2x"></i>
+              <h3>99</h3>
+            </div>
+            <p>Views</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <i class="fa fa-share-alt fa-2x"></i>
+              <h3>23</h3>
+            </div>
+            <p>Shares</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <i class="fa fa-users fa-2x"></i>
+              <h3>50</h3>
+            </div>
+            <p>Users</p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 container">
                 <div class="row">
                     <div class="col-6">
                         <h2>Insert New Dish</h2>
@@ -125,10 +190,23 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('sidebarToggle').addEventListener('click', function () {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar.style.display === 'block') {
+      sidebar.style.display = 'none';
+    } else {
+      sidebar.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
 </html>
 <?php
     }else{
